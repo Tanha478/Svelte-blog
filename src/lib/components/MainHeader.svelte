@@ -3,7 +3,7 @@
   import IconLink from "./IconLink.svelte";
   import GithubIcon from "./svg/GithubIcon.svelte";
 
-  import Logo from "./svg/Logo.svelte";
+  import Logo from "./svg/logo.png";
   import YoutubeIcon from "./svg/YoutubeIcon.svelte";
 </script>
 
@@ -15,19 +15,19 @@
     class="flex items-center justify-between max-w-5xl
     mx-auto px-4 h-24"
   >
-    <a href="/"> <Logo class="w-28 h-28" /> </a>
+    <a href="/"><img src={Logo} alt="Logo" class="w-28 h-28" /></a>
 
     <div class="flex space-x-1 items-center">
       <DarkmodeButton />
 
-      <IconLink
+      <!-- <IconLink
         href="https://www.youtube.com/@joseanmartinez/featured"
         target="_blank"
       >
         <YoutubeIcon class="w-8 h-8 fill-current" />
-      </IconLink>
+      </IconLink> -->
       <IconLink
-        href="https://github.com/josean-dev"
+        href="https://github.com/Tanha478"
         target="_blank"
       >
         <GithubIcon class="w-8 h-8 fill-current" />
