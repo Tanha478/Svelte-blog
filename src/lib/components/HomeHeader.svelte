@@ -1,10 +1,10 @@
 
-<div>
+<!-- <div>
   <img src="/1st.png" alt="1image" class="w-full h-96 object-cover" />
-</div>
+</div> -->
 <div class="flex">
   <div class="w-1/2 object-cover  ml-3"><img src="/2nd.png" alt="2image" class="" /></div>
-  <div class="w-1/2 object-cover  rounded ml-3" ><img src="/3rd.png" alt="3image" class="" /></div>
+  <div class="w-1/2 object-cover  rounded ml-3" ><img src="https://www.creative-tim.com/twcomponents/svg/website-designer-bro-purple.svg" alt="3image" class="" /></div>
 </div>
 
 

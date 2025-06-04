@@ -1,131 +1,120 @@
 ---
-title: "How To Use and Configure Tmux Alongside Neovim"
+title: "A Practical Guide to Full Stack Development: Tools, Approaches & More"
 imgUrl: "/post-images/tmux-setup.jpg"
-youtubeId: "U-omALWIBos"
+youtubeId: "MkcfB7S4fq0"
 publishedAt: "2022-10-27"
-summary: "Follow along my youtube video with this blog post to get up and running with Tmux quickly and use it alongside Neovim for an awesome software development workflow."
+summary: "Explore the essentials of full stack development, including popular tools, frameworks, workflows, and best practices for building modern web applications from scratch."
 ---
 
-## Install TMUX with Homebrew
+## What is Full Stack Development?
 
-```bash
-brew install tmux
-```
+Full stack development refers to the practice of working on both the front-end (client side) and back-end (server side) of web applications. A full stack developer is comfortable with databases, servers, systems engineering, and clients—essentially, they can take a project from concept to deployment.
 
-## Create ~/.tmux.conf file
+---
 
-```bash
-touch ~/.tmux.conf
-```
+## Key Components of Full Stack Development
 
-## Configure True Colors
+- **Front-End:** The user interface and experience, typically built with HTML, CSS, and JavaScript frameworks like React, Vue, or Svelte.
+- **Back-End:** The server, application logic, and database. Common languages include Node.js, Python, Ruby, Java, and PHP.
+- **Database:** Where data is stored and managed. Popular choices are PostgreSQL, MySQL, MongoDB, and SQLite.
+- **APIs:** Interfaces for communication between front-end and back-end, often using REST or GraphQL.
 
-Open ~/.tmux.conf and add the following:
+---
 
-```bash
-set -g default-terminal "screen-256color"
-```
+## Popular Tools & Frameworks
 
-## Change Default TMUX Prefix to "Ctrl-a"
+### Front-End
 
-Add the following to ~/.tmux.conf:
+- **React.js:** Component-based UI library by Facebook.
+- **Vue.js:** Progressive framework for building user interfaces.
+- **Angular:** Full-featured framework by Google.
+- **Svelte:** Compiler that generates minimal and fast JavaScript.
 
-```bash
-set -g prefix C-a
-unbind C-b
-bind-key C-a send-prefix
-```
+### Back-End
 
-## Change keybinds for splitting windows
+- **Node.js:** JavaScript runtime for building scalable server-side applications.
+- **Express.js:** Minimal and flexible Node.js web application framework.
+- **Django:** High-level Python web framework.
+- **Ruby on Rails:** Convention-over-configuration framework for Ruby.
 
-Add this to ~/.tmux.conf:
+### Databases
 
-```bash
-unbind %
-bind | split-window -h
+- **Relational:** PostgreSQL, MySQL, SQLite
+- **NoSQL:** MongoDB, Redis, Firebase
 
-unbind '"'
-bind - split-window -v
-```
+### DevOps & Deployment
 
-## Add keybind for easily refreshing tmux configuration
+- **Docker:** Containerization for consistent environments.
+- **Git & GitHub:** Version control and collaboration.
+- **CI/CD:** GitHub Actions, GitLab CI, Jenkins for automated testing and deployment.
+- **Cloud Providers:** Vercel, Netlify, AWS, Azure, DigitalOcean.
 
-Add this to ~/.tmux.conf to be able to refresh tmux config with "Ctrl-a" and then "r":
+---
 
-```bash
-unbind r
-bind r source-file ~/.tmux.conf
-```
+## Full Stack Development Approaches
 
-## Add keybinds for easily resizing tmux panes
+### Monolithic
 
-Add these to ~/.tmux.conf:
+All components (front-end, back-end, database) are part of a single codebase and deployed together. Easier to start, but can become hard to maintain as the app grows.
 
-```bash
-bind -r j resize-pane -D 5
-bind -r k resize-pane -U 5
-bind -r l resize-pane -R 5
-bind -r h resize-pane -L 5
-```
+### Microservices
 
-## Add keybind for maximizing and minimizing tmux pane
+The application is split into smaller, independent services that communicate over APIs. Offers better scalability and maintainability, but adds complexity.
 
-Add the following to ~/.tmux.conf:
+### JAMstack
 
-```bash
-bind -r m resize-pane -Z
-```
+Modern approach using JavaScript, APIs, and Markup. The front-end is decoupled from the back-end, often using static site generators and serverless functions.
 
-## Enable the mouse in tmux
+---
 
-Add the following to ~/.tmux.conf:
+## Typical Full Stack Workflow
 
-```bash
-set -g mouse on
-```
+1. **Plan:** Define requirements, choose tech stack, design database schema.
+2. **Develop:** Build front-end and back-end, set up API endpoints.
+3. **Test:** Write unit and integration tests for both client and server.
+4. **Deploy:** Use CI/CD pipelines to automate deployment.
+5. **Monitor:** Track performance, errors, and user analytics.
 
-## Configure vim movements for tmux's copy mode
+---
 
-Add the following to ~/.tmux.conf:
+## Essential Skills for Full Stack Developers
 
-```bash
-set-window-option -g mode-keys vi
+- Proficiency in at least one front-end and one back-end framework.
+- Understanding of RESTful APIs and/or GraphQL.
+- Familiarity with databases (SQL and NoSQL).
+- Version control with Git.
+- Basic DevOps: deployment, CI/CD, and cloud services.
+- Problem-solving and debugging across the stack.
 
-bind-key -T copy-mode-vi 'v' send -X begin-selection # start selecting text with "v"
-bind-key -T copy-mode-vi 'y' send -X copy-selection # copy text with "y"
+---
 
-unbind -T copy-mode-vi MouseDragEnd1Pane # don't exit copy mode after dragging with mouse
-```
+## Recommended Learning Resources
 
-## Install tpm (tmux plugin manager)
+- [freeCodeCamp](https://www.freecodecamp.org/)
+- [The Odin Project](https://www.theodinproject.com/)
+- [MDN Web Docs](https://developer.mozilla.org/)
+- [Full Stack Open](https://fullstackopen.com/)
+- YouTube channels: Traversy Media, Fireship, Academind
 
-Run the following:
+---
 
-```bash
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-```
+## Best Practices
 
-## Add and configure tmux plugins with tpm
+- Keep code modular and maintainable.
+- Write tests for both front-end and back-end.
+- Use environment variables for configuration.
+- Document your APIs and codebase.
+- Stay updated with new tools and frameworks.
 
-Add the following to ~/.tmux.conf:
+---
 
-```bash
-# tpm plugin
-set -g @plugin 'tmux-plugins/tpm'
+## Next Steps
 
-# list of tmux plugins
-set -g @plugin 'christoomey/vim-tmux-navigator' # for navigating panes and vim/nvim with Ctrl-hjkl
-set -g @plugin 'jimeh/tmux-themepack' # to configure tmux theme
-set -g @plugin 'tmux-plugins/tmux-resurrect' # persist tmux sessions after computer restart
-set -g @plugin 'tmux-plugins/tmux-continuum' # automatically saves sessions for you every 15 minutes
+- Build a simple CRUD app to practice the full stack workflow.
+- Explore authentication and authorization.
+- Learn about web security basics (CORS, XSS, CSRF).
+- Try deploying your app to a cloud provider.
 
-set -g @themepack 'powerline/default/cyan' # use this theme for tmux
+---
 
-set -g @resurrect-capture-pane-contents 'on' # allow tmux-ressurect to capture pane contents
-set -g @continuum-restore 'on' # enable tmux-continuum functionality
-
-# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
-run '~/.tmux/plugins/tpm/tpm'
-```
-
-## You're Done!
+Happy coding and welcome to the world of full stack development!

@@ -34,5 +34,9 @@
 		"typescript-svelte-plugin": "^0.3.31",
 		"vite": "^4.4.2"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"@supabase/ssr": "^0.6.1",
+		"@supabase/supabase-js": "^2.49.8"
+	}
 }

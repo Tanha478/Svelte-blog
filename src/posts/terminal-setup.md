@@ -1,149 +1,87 @@
 ---
-title: "How To Setup Your Mac Terminal"
+title: "How To Setup SvelteKit with Supabase in VSCode"
 imgUrl: "/post-images/terminal-setup.jpg"
-youtubeId: "CF1tMjvHDRA"
-publishedAt: "2022-10-03"
-summary: "This is my supplementary blog post for setting up a terminal window on mac with Oh-My-Zsh and Powerlevel10k. You can use this along with the youtube video to follow along!"
+youtubeId: "lEWghUOta-4"
+publishedAt: "2025-06-04"
+summary: "This is a complete walkthrough to set up SvelteKit with Supabase in your VSCode environment. Follow along to initialize the project, connect Supabase, and run your app smoothly."
 ---
 
-## Install Homebrew
+## Prerequisites
 
-Open up a terminal window and install homebrew with the following command:
+Make sure you have the following installed:
 
-```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
+- [Node.js](https://nodejs.org/) (v18 or above recommended)
+- [VSCode](https://code.visualstudio.com/)
+- [Supabase Account](https://supabase.com/)
 
-## Add Homebrew To Path
-
-After installing, add it to the path (replace "[username]" with your actual username):
+## Create SvelteKit Project
 
 ```bash
-echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/[username]/.zprofile
-eval "$(/opt/homebrew/bin/brew shellenv)"
-```
+npm create svelte@latest sveltekit-supabase-app
+cd sveltekit-supabase-app
+npm install
 
-## Install iTerm2
+...existing content...
 
-To install, run:
+## Set Up Supabase
 
-```bash
-brew install --cask iterm2
-```
+1. Go to [Supabase](https://supabase.com/) and create a new project.
+2. Once your project is ready, navigate to the Project Settings and copy your **Project URL** and **anon public key**.
 
-Switch to iTerm2 for the remainder of this walkthrough.
+## Install Supabase Client
 
-## Install Git
-
-If you don't have it installed, install git as well:
+In your SvelteKit project directory, install the Supabase JS client:
 
 ```bash
-brew install git
+npm install @supabase/supabase-js
 ```
 
-## Install Oh My Zsh
+## Configure Supabase in SvelteKit
 
-Run this to install Oh My Zsh:
+Create a new file for your Supabase client, for example: `src/lib/supabaseClient.ts`
+
+```typescript
+// src/lib/supabaseClient.ts
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = 'https://YOUR_PROJECT_ID.supabase.co';
+const supabaseAnonKey = 'YOUR_ANON_PUBLIC_KEY';
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+```
+
+Replace `YOUR_PROJECT_ID` and `YOUR_ANON_PUBLIC_KEY` with your actual Supabase credentials.
+
+## Test the Connection
+
+You can now use the Supabase client in your SvelteKit routes or components. For example, fetch user data in a page:
+
+```typescript
+// src/routes/+page.ts
+import { supabase } from '$lib/supabaseClient';
+
+export async function load() {
+  const { data, error } = await supabase.from('users').select('*');
+  return { users: data ?? [], error };
+}
+```
+
+## Run Your App
+
+Start your development server:
 
 ```bash
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+npm run dev
 ```
 
-## Install PowerLevel10K Theme for Oh My Zsh
+Open [http://localhost:5173](http://localhost:5173) (or the port shown in your terminal) to see your SvelteKit app running.
 
-Run this to install PowerLevel10K:
+---
 
-```bash
-git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
-```
+## Next Steps
 
-Now that it's installed, open the "~/.zshrc" file
-with your preferred editor and change the value
-of "ZSH_THEME" as shown below:
+- Set up authentication with Supabase (email, OAuth, etc.)
+- Create and manage tables in the Supabase dashboard
+- Deploy your SvelteKit app to Vercel, Netlify, or your preferred platform
 
-```bash
-ZSH_THEME="powerlevel10k/powerlevel10k"
-```
-
-To reflect this change on your terminal, restart it or run this command:
-
-```bash
-source ~/.zshrc
-```
-
-## Install Meslo Nerd Font
-
-Install the font by pressing "y" and then quit iTerm2.
-
-## Update VSCode Terminal Font (Optional)
-
-Open settings.json and add this line:
-
-```json
-"terminal.integrated.fontFamily": "MesloLGS NF"
-```
-
-## Configure PowerLevel10K
-
-Restart iTerm2. You should now be seeing the PowerLevel10K configuration process. If you don't,
-run the following:
-
-```bash
-p10k configure
-```
-
-Follow the instructions for the PowerLevel10K configuration to make your terminal
-look as desired.
-
-## Increase Terminal Font Size
-
-1. Open iTerm2 preferences
-2. Go to Profiles > Text
-3. I increase my font size to about 20px
-
-## Change iTerm2 Colors to My Custom Theme
-
-1. Open iTerm2
-2. Download my color profile by running the following command (will be added to Downloads folder):
-
-```bash
-curl https://raw.githubusercontent.com/josean-dev/dev-environment-files/main/coolnight.itermcolors --output ~/Downloads/coolnight.itermcolors
-```
-
-3. Open iTerm2 preferences
-4. Go to Profiles > Colors
-5. Import the downloaded color profile (coolnight)
-6. Select the color profile (coolnight)
-
-You can find other themes here: [Iterm2 Color Schemes](https://iterm2colorschemes.com)
-
-## Install ZSH Plugins
-
-Install zsh-autosuggestions:
-
-```bash
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-```
-
-Install zsh-syntax-highlighting:
-
-```bash
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-```
-
-Open the "~/.zshrc" file in your desired editor and
-modify the plugins line to what you see below.
-
-```bash
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting web-search)
-```
-
-Load these new plugins by running:
-
-```bash
-source ~/.zshrc
-```
-
-## You're Done!
-
-With that, you're finished and should have a much better terminal experience!
+Happy coding!

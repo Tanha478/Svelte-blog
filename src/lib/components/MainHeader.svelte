@@ -1,10 +1,15 @@
 <script>
+  // src/lib/supabaseClient.ts
+  import {handleLogout} from '$lib/auth';
   import DarkmodeButton from "./DarkmodeButton.svelte";
   import IconLink from "./IconLink.svelte";
   import GithubIcon from "./svg/GithubIcon.svelte";
 
   import Logo from "./svg/logo.png";
   import YoutubeIcon from "./svg/YoutubeIcon.svelte";
+  // Make sure supabase and goto are imported or available in this scope
+  // import { supabase } from 'path/to/your/supabaseClient';
+  // import { goto } from '$app/navigation';
 </script>
 
 <header
@@ -32,6 +37,12 @@
       >
         <GithubIcon class="w-8 h-8 fill-current" />
       </IconLink>
+
+      <button on:click={() => {
+         console.log('Logout button clicked');
+        handleLogout();
+}} class="border border-[#c352c3] bg-transparent text-[#c352c3] p-2 rounded-md hover:bg-purple-500 hover:text-[white]">Logout</button>
+
     </div>
   </nav>
 </header>
